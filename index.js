@@ -20,6 +20,10 @@ dbConnection();
 // ROUTES
 app.use('/api/usuarios', require('./routes/usuarios.routes'));
 app.use('/api/login', require('./routes/auth.routes'));
+app.use('/api/categorias', require('./routes/categorias.routes'));
+app.use('/api/subcategorias', require('./routes/subcategorias.routes'));
+app.use('/api/productos', require('./routes/productos.routes'));
+app.use('/api/search', require('./routes/search.routes'));
 
 app.listen(process.env.PORT, () => {
 

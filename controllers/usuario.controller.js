@@ -83,6 +83,8 @@ const actualizarUsuario = async(req, res = response) => {
 
     // TODO: Validar Token y comprobar el usuario
 
+    const uidT = req.uid;
+
     const uid = req.params.id;
 
     try {
@@ -96,23 +98,31 @@ const actualizarUsuario = async(req, res = response) => {
             });
         }
 
-        // Actualizaciones
-        const { password, email, ...campos } = req.body;
+        if (uidT != uid) {
 
-        if (usuarioDB.email != email) {
-
-            const validarEmail = await Usuario.findOne({ email });
-            if (validarEmail) {
-
-                return res.status(400).json({
-                    ok: false,
-                    msg: 'Ya existe un usuario con este email.'
-                });
-
-            }
+            return res.status(403).json({
+                ok: false,
+                msg: 'No estas autorizado para cambiar información de otros usuarios, esto aplica acciones legales'
+            });
         }
 
-        campos.email = email;
+        // Actualizaciones
+        const { password, ...campos } = req.body;
+
+        // if (usuarioDB.email != email) {
+
+        //     const validarEmail = await Usuario.findOne({ email });
+        //     if (validarEmail) {
+
+        //         return res.status(400).json({
+        //             ok: false,
+        //             msg: 'Ya existe un usuario con este email.'
+        //         });
+
+        //     }
+        // }
+
+        // campos.email = email;
 
         const usuarioActualizado = await Usuario.findByIdAndUpdate(uid, campos, { new: true });
 

@@ -22,17 +22,52 @@ const UsuarioSchema = Schema({
         type: String
     },
 
+    telefono: {
+        type: String,
+    },
+
+    whatsapp: {
+        type: String
+    },
+
     role: {
         type: String,
         default: 'USER_ROLE'
     },
 
+    google: {
+        type: Boolean,
+        default: false
+    },
+
+    facebook: {
+        type: Boolean,
+        default: false
+    },
+
     direccion: {
         type: String
+    },
 
+    ciudad: {
+        type: String
     },
 
     estado: {
+        type: String
+    },
+
+    puntos: {
+        type: Number,
+        default: 0
+    },
+
+    likes: {
+        type: Number,
+        default: 0
+    },
+
+    status: {
         type: Boolean,
         default: true
     }

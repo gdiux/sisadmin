@@ -1,5 +1,5 @@
 /**
- *  RUTA: /api/usuarios/
+ *  RUTA: /api/categorias/
  */
 const { Router } = require('express');
 const { check } = require('express-validator');
@@ -10,61 +10,56 @@ const { validarJWT } = require('../middlewares/validar-jwt');
 // MIDDLEWARES
 
 // CONTROLLERS
-const { getUsuarios, crearUsuario, actualizarUsuario, borrarUsuario } = require('../controllers/usuario.controller');
+const { crearSubcategoria, getSubcategorias, actualizarSubcategoria, borrarSubcategoria } = require('../controllers/subcategorias.controller');
 // CONTROLLERS
 
-
 const router = Router();
-/** ================================================================
- * GET USERS
-====================================================================*/
-router.get('/', validarJWT, getUsuarios);
-/** ================================================================
- * GET USERS
-====================================================================*/
 
 /** ================================================================
- * POST CREATE NEW USER
+ * POST CREATE NEW SUBCATEGORIA
 ====================================================================*/
 router.post(
     '/', [
-        check('nombre', 'El nombre es obligatorio').not().isEmpty(),
-        check('password', 'El password es obligatorio').not().isEmpty(),
-        check('email', 'El email es obligatorio').isEmail(),
+        validarJWT,
+        check('nombre', 'El nombre de la subcategoria es obligatorio').not().isEmpty(),
         validarCampos,
     ],
-    crearUsuario
+    crearSubcategoria
 );
 /** ================================================================
- * POST CREATE NEW USER
+ * POST CREATE NEW SUBCATEGORIA
 ====================================================================*/
 /** ================================================================
- * PUT USER
+ * GET SUBCATEGORIAS
+====================================================================*/
+router.get('/', validarJWT, getSubcategorias);
+/** ================================================================
+ * GET SUBCATEGORIAS
+====================================================================*/
+/** ================================================================
+ * PUT SUBCATEGORIA
 ====================================================================*/
 router.put(
     '/:id', [
         validarJWT,
         check('nombre', 'El nombre es obligatorio').not().isEmpty(),
-        check('ciudad', 'la ciudad es obligatoria').not().isEmpty(),
-        check('estado', 'El estado es obligatorio').not().isEmpty(),
-        check('telefono', 'El telefono es obligatorio').not().isEmpty(),
         validarCampos,
     ],
-    actualizarUsuario
+    actualizarSubcategoria
 );
 /** ================================================================
- * PUT USER
+ * PUT SUBCATEGORIA
 ====================================================================*/
 /** ================================================================
- * DELETE USERS
+ * DELETE SUBCATEGORIA
 ====================================================================*/
 router.delete(
     '/:id',
     validarJWT,
-    borrarUsuario
+    borrarSubcategoria
 );
 /** ================================================================
- * DELETE USERS
+ * DELETE SUBCATEGORIA
 ====================================================================*/
 
 

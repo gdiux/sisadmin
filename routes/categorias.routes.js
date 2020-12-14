@@ -1,5 +1,5 @@
 /**
- *  RUTA: /api/usuarios/
+ *  RUTA: /api/categorias/
  */
 const { Router } = require('express');
 const { check } = require('express-validator');
@@ -10,33 +10,31 @@ const { validarJWT } = require('../middlewares/validar-jwt');
 // MIDDLEWARES
 
 // CONTROLLERS
-const { getUsuarios, crearUsuario, actualizarUsuario, borrarUsuario } = require('../controllers/usuario.controller');
+const { crearCategoria, getCategorias, actualizarCategoria, borrarCategoria } = require('../controllers/categorias.controller');
 // CONTROLLERS
 
-
 const router = Router();
-/** ================================================================
- * GET USERS
-====================================================================*/
-router.get('/', validarJWT, getUsuarios);
-/** ================================================================
- * GET USERS
-====================================================================*/
 
 /** ================================================================
- * POST CREATE NEW USER
+ * POST CREATE NEW CATEGORIA
 ====================================================================*/
 router.post(
     '/', [
-        check('nombre', 'El nombre es obligatorio').not().isEmpty(),
-        check('password', 'El password es obligatorio').not().isEmpty(),
-        check('email', 'El email es obligatorio').isEmail(),
+        validarJWT,
+        check('nombre', 'El nombre de la categoria es obligatorio').not().isEmpty(),
         validarCampos,
     ],
-    crearUsuario
+    crearCategoria
 );
 /** ================================================================
- * POST CREATE NEW USER
+ * POST CREATE NEW CATEGORIA
+====================================================================*/
+/** ================================================================
+ * GET CATEGORIAS
+====================================================================*/
+router.get('/', validarJWT, getCategorias);
+/** ================================================================
+ * GET CATEGORIAS
 ====================================================================*/
 /** ================================================================
  * PUT USER
@@ -45,26 +43,23 @@ router.put(
     '/:id', [
         validarJWT,
         check('nombre', 'El nombre es obligatorio').not().isEmpty(),
-        check('ciudad', 'la ciudad es obligatoria').not().isEmpty(),
-        check('estado', 'El estado es obligatorio').not().isEmpty(),
-        check('telefono', 'El telefono es obligatorio').not().isEmpty(),
         validarCampos,
     ],
-    actualizarUsuario
+    actualizarCategoria
 );
 /** ================================================================
  * PUT USER
 ====================================================================*/
 /** ================================================================
- * DELETE USERS
+ * DELETE CATEGORIA
 ====================================================================*/
 router.delete(
     '/:id',
     validarJWT,
-    borrarUsuario
+    borrarCategoria
 );
 /** ================================================================
- * DELETE USERS
+ * DELETE CATEGORIA
 ====================================================================*/
 
 
