@@ -1,8 +1,25 @@
 const { Schema, model } = require('mongoose');
 
-const UsuarioSchema = Schema({
+// PRODUCTS SCHEMA
+const ProductosSchema = Schema({
+    product: {
+        type: Schema.Types.ObjectId,
+        ref: 'Productos',
+        require: true
+    },
+    qty: {
+        type: Number,
+        require: true
+    },
+    price: {
+        type: Number,
+        require: true
+    }
+});
 
-    nombre: {
+const ClientSchema = Schema({
+
+    name: {
         type: String,
         require: true
     },
@@ -13,26 +30,12 @@ const UsuarioSchema = Schema({
         unique: true
     },
 
-    password: {
-        type: String,
-        require: true
-    },
-
     cedula: {
         type: String
     },
 
-    telefono: {
+    phone: {
         type: String,
-    },
-
-    whatsapp: {
-        type: String
-    },
-
-    role: {
-        type: String,
-        default: 'USER_ROLE'
     },
 
     google: {
@@ -45,17 +48,23 @@ const UsuarioSchema = Schema({
         default: false
     },
 
-    direccion: {
+    address: {
         type: String
     },
 
-    ciudad: {
+    
+    city: {
         type: String
+    },
+    
+    department: {
+        type: String
+    },
+    
+    cart: {
+        type: [ProductosSchema]
     },
 
-    estado: {
-        type: String
-    },
     status: {
         type: Boolean,
         default: true
@@ -63,11 +72,11 @@ const UsuarioSchema = Schema({
 
 });
 
-UsuarioSchema.method('toJSON', function() {
+ClientSchema.method('toJSON', function() {
     const { __v, _id, password, ...object } = this.toObject();
 
     object.uid = _id;
     return object;
 });
 
-module.exports = model('Usuario', UsuarioSchema);
+module.exports = model('Client', ClientSchema);

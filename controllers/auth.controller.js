@@ -2,7 +2,7 @@ const { response } = require("express");
 const bcrypt = require('bcryptjs');
 
 // MODELS
-const Usuario = require('../models/usuario.model');
+const Client = require('../models/clients.model');
 // MODELS
 
 // JWT
@@ -16,9 +16,9 @@ const login = async(req, res = response) => {
     try {
 
         // VALIDAR EMAIL
-        const usuarioDB = await Usuario.findOne({ email });
+        const clientDB = await Client.findOne({ email });
 
-        if (!usuarioDB) {
+        if (!clientDB) {
             return res.status(404).json({
                 ok: false,
                 msg: 'Email ó Contraseña incorrecto'
@@ -26,7 +26,7 @@ const login = async(req, res = response) => {
         }
 
         // VALIDAR PASSWORD
-        const validaPassword = bcrypt.compareSync(password, usuarioDB.password);
+        const validaPassword = bcrypt.compareSync(password, clientDB.password);
 
         if (!validaPassword) {
             return res.status(404).json({
@@ -36,8 +36,7 @@ const login = async(req, res = response) => {
         }
 
         // GENERAR TOKEN - JWT
-        const token = await generarJWT(usuarioDB.id);
-
+        const token = await generarJWT(clientDB.id);
 
         res.json({
             ok: true,
@@ -54,9 +53,6 @@ const login = async(req, res = response) => {
     }
 
 }
-
-
-
 
 // MODULE EXPORTS
 module.exports = {

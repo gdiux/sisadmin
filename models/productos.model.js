@@ -44,7 +44,22 @@ const ProductoSchema = Schema({
         require: true
     },
 
-    ventas: {
+    inicial:{
+        type: Number,
+        default: 0
+    },
+
+    vendidos: {
+        type: Number,
+        default: 0
+    },
+
+    devueltos:{
+        type: Number,
+        default: 0
+    },
+
+    stock: {
         type: Number,
         default: 0
     },
@@ -52,22 +67,6 @@ const ProductoSchema = Schema({
     likes: {
         type: Number,
         default: 0
-    },
-
-    ciudad: {
-        type: String,
-        require: true,
-    },
-
-    estado: {
-        type: String,
-        require: true,
-    },
-
-    usuario: {
-        type: Schema.Types.ObjectId,
-        ref: 'Usuario',
-        require: true
     },
 
     categoria: {
