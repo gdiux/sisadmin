@@ -10,7 +10,7 @@
  // MIDDLEWARES
  
  // CONTROLLERS
- const { getClients } = require('../controllers/clients.controller'); 
+ const { getClients, updateClients } = require('../controllers/clients.controller'); 
  // CONTROLLERS
  
  
@@ -50,23 +50,11 @@
          check('telefono', 'El telefono es obligatorio').not().isEmpty(),
          validarCampos,
      ],
-     actualizarUsuario
+     updateClients
  );
  /** ================================================================
   * PUT USER
- ====================================================================*/
- /** ================================================================
-  * DELETE USERS
- ====================================================================*/
- router.delete(
-     '/:id',
-     validarJWT,
-     borrarUsuario
- );
- /** ================================================================
-  * DELETE USERS
- ====================================================================*/
- 
+ ====================================================================*/ 
  
  // MODULE EXPORTS
  module.exports = router;

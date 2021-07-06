@@ -1,6 +1,5 @@
 const { response } = require('express');
 
-
 // MODELS
 const Categoria = require('../models/categorias.model');
 // MODELS

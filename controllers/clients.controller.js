@@ -59,9 +59,79 @@ const postClients = async(req, res = response) => {
  * POST CLIENTS
 ====================================================================*/
 
+/** ================================================================
+ * PUT CLIENT
+====================================================================*/
+const updateClients = async(req, res = response) => {
+
+    // TODO: Validar Token y comprobar el usuario
+
+    const uidT = req.uid;
+    const cid = req.params.id;
+
+    try {
+
+        const clientDB = await Client.findById(cid);
+
+        if (!clientDB) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'No existe un usuario con este id'
+            });
+        }
+
+        if (uidT != cid) {
+
+            return res.status(403).json({
+                ok: false,
+                msg: 'No estas autorizado para cambiar información de otros usuarios, esto aplica acciones legales'
+            });
+        }
+
+        // Actualizaciones
+        const { password, ...campos } = req.body;
+
+        // if (clientDB.email != email) {
+
+        //     const validarEmail = await Usuario.findOne({ email });
+        //     if (validarEmail) {
+
+        //         return res.status(400).json({
+        //             ok: false,
+        //             msg: 'Ya existe un usuario con este email.'
+        //         });
+
+        //     }
+        // }
+
+        // campos.email = email;
+
+        const clienteActualizado = await Client.findByIdAndUpdate(uid, campos, { new: true });
+
+        res.json({
+            ok: true,
+            clienteActualizado
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Error inesperado... revisar logs'
+        });
+    }
+
+
+};
+/** ================================================================
+ * PUT CLIENT
+====================================================================*/
+
 
 
 // EXPORT
 module.exports = {
-    getClients
+    getClients,
+    postClients,
+    updateClients
 }
